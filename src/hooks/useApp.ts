@@ -14,6 +14,10 @@ export function useApp() {
   );
   const totalBalance = totalIncome - totalExpense;
 
+  function formatString(str: string) {
+    return str.split("").at(0)?.toUpperCase() + str.slice(1);
+  }
+
   if (!context) throw new Error("App Context was used outside the provider");
 
   return {
@@ -24,5 +28,6 @@ export function useApp() {
     totalBalance,
     currentTab,
     setCurrentTab,
+    formatString,
   };
 }

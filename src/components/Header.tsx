@@ -3,7 +3,7 @@ import Navigation from "../ui/Navigation";
 
 function Header() {
   return (
-    <header className="flex flex-row items-center justify-between h-20 w-full border border-black px-15 shadow-md">
+    <header className="flex flex-row items-center justify-between h-20 min-h-20 w-full border border-black px-15 shadow-md">
       <Logo />
       <Navigation />
     </header>

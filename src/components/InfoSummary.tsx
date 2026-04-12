@@ -11,7 +11,7 @@ function InfoSummary() {
   ];
 
   return (
-    <div className="flex flex-row items-center justify-evenly mt-12">
+    <div className="flex flex-row items-center justify-evenly my-10 ">
       {infoSummaryData.map((data) => (
         <Summary
           key={data.title}
