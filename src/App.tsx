@@ -1,4 +1,5 @@
 import { useApp } from "./hooks/useApp";
+import Dashboard from "./pages/Dashboard";
 import "./styles.css";
 
 export default function App() {
@@ -6,7 +7,7 @@ export default function App() {
   console.log(state);
   return (
     <div>
-      <h1>Simple Expense tracker built with React-Typescript</h1>
+      <Dashboard />
     </div>
   );
 }

@@ -21,13 +21,13 @@
   }
 
   body {
-    background-color: #222f3e;
+    background-color: #2c2c2c;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     height: 100vh;
-    color: #fff;
+    color: #e4e4e4;
   }
 
   #root {
@@ -37,4 +37,17 @@
     align-items: center;
     justify-content: center;
   }
+}
+
+@theme {
+  --color-brand-bg: #2c2c2c;
+  --color-brand-bg-light: #393939;
+  --color-brand-text: #e4e4e4;
+  --color-brand-income: #327b7d;
+  --color-brand-expense: #ff4263;
+  --color-brand-cta: #65448f;
+  --color-brand-cta-small: #8b68b7;
+  --color-brand-cta-hover: #714ca0;
+  --color-brand-cta-small-hover: #9f83c4;
+  --color-brand-table-even: #535353;
 }
