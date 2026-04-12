@@ -1,19 +1,22 @@
 import { useApp } from "../hooks/useApp";
 
 function Navigation() {
-  const { setCurrentTab } = useApp();
+  const { setCurrentTab, currentTab } = useApp();
+
+  const navLinks = ["dashboard", "transactions", "categories"];
   return (
     <div>
       <ul className="flex flex-row items-center justify-center gap-8 text-2xl">
-        <li className="cursor-pointer">
-          <div onClick={() => setCurrentTab("dashboard")}>Dashboard</div>
-        </li>
-        <li className="cursor-pointer">
-          <div onClick={() => setCurrentTab("transactions")}>Transactions</div>
-        </li>
-        <li className="cursor-pointer">
-          <div onClick={() => setCurrentTab("categories")}>Categories</div>
-        </li>
+        {navLinks.map((nav) => (
+          <li
+            className={`cursor-pointer border-b-4  ${nav === currentTab ? "border-brand-text" : "border-transparent"} py-2`}
+            key={nav}
+          >
+            <div onClick={() => setCurrentTab(nav)}>
+              {nav.split("").at(0)?.toUpperCase() + nav.slice(1)}
+            </div>
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -19,7 +19,7 @@ function Dashboard() {
         </div>
         <div className="border-b border-black w-full"></div>
         <div className="py-5">
-          <p className="text-3xl mb-5">Recent Transactions</p>
+          <p className="text-3xl mb-15">Recent Transactions</p>
           <TransactionList transactionListLength={5} />
         </div>
       </div>

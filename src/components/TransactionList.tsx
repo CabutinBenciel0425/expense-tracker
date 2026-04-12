@@ -11,7 +11,6 @@ function TransactionList({
   const sortByDateTransactions = state.transactions.sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
-  console.log(state);
   return (
     <table className="border-separate text-xl border-spacing-y-3 w-10/12 text-left m-auto">
       <thead className="text-2xl">

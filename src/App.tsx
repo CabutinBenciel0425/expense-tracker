@@ -5,9 +5,8 @@ import Transaction from "./pages/Transaction";
 import "./styles.css";
 
 export default function App() {
-  const { state, currentTab } = useApp();
+  const { currentTab } = useApp();
 
-  console.log(state);
   return (
     <div>
       {currentTab === "dashboard" && <Dashboard />}
