@@ -3,7 +3,7 @@ import { AppContext } from "../context/AppContext";
 
 export function useApp() {
   const context = useContext(AppContext);
-  const { dispatch, state } = context;
+  const { dispatch, state, currentTab, setCurrentTab } = context;
   const totalIncome = state.transactions.reduce(
     (acc, cur) => (cur.type === "Income" ? cur.amount + acc : acc),
     0,
@@ -16,5 +16,13 @@ export function useApp() {
 
   if (!context) throw new Error("App Context was used outside the provider");
 
-  return { dispatch, state, totalIncome, totalExpense, totalBalance };
+  return {
+    dispatch,
+    state,
+    totalIncome,
+    totalExpense,
+    totalBalance,
+    currentTab,
+    setCurrentTab,
+  };
 }
