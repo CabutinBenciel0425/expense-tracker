@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import type { TransactionType } from "../sharedTypes/transactionTypes";
 
 export function useApp() {
   const context = useContext(AppContext);
@@ -18,6 +19,12 @@ export function useApp() {
     return str.split("").at(0)?.toUpperCase() + str.slice(1);
   }
 
+  function sortByDate(arr: TransactionType[]) {
+    return [...arr].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+  }
+
   if (!context) throw new Error("App Context was used outside the provider");
 
   return {
@@ -29,5 +36,6 @@ export function useApp() {
     currentTab,
     setCurrentTab,
     formatString,
+    sortByDate,
   };
 }

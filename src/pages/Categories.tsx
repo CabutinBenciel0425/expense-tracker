@@ -7,7 +7,7 @@ function Categories() {
   return (
     <AppLayout>
       <Header />
-      <div className="h-40 w-full flex items-center justify-end px-20">
+      <div className="h-40 w-full flex items-center justify-end px-40">
         <Button variant="big">Add new Category</Button>
       </div>
       <CategoryList />
