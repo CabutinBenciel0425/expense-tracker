@@ -1,6 +1,7 @@
 import { useApp } from "../hooks/useApp";
 import { LuPencil } from "react-icons/lu";
 import { HiOutlineTrash } from "react-icons/hi";
+import Button from "../ui/Button";
 
 function CategoryList() {
   const { state } = useApp();
@@ -29,12 +30,12 @@ function CategoryList() {
             </td>
             <td className="text-3xl">
               <div className="flex justify-center gap-2.5">
-                <button className="text-brand-cta-small cursor-pointer hover:text-brand-cta-small-hover transition-all duration-300 ease">
+                <Button variant="small">
                   <LuPencil />
-                </button>
-                <button className="text-brand-cta-small cursor-pointer hover:text-brand-cta-small-hover transition-all duration-300 ease">
+                </Button>
+                <Button variant="small">
                   <HiOutlineTrash />
-                </button>
+                </Button>
               </div>
             </td>
           </tr>
