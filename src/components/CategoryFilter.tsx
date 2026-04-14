@@ -10,7 +10,7 @@ function CategoryFilter() {
 
   return (
     <div className="w-full mb-10 text-2xl">
-      <div className="w-10/12 h-16 bg-brand-bg-light rounded-md shadow-lg mx-auto flex flex-row justify-center items-center gap-35">
+      <div className="w-10/12 h-16 bg-brand-bg-light rounded-md shadow-lg mx-auto flex flex-row justify-center items-center px-10">
         <Select
           label="Filter by Type:"
           dataArr={types}

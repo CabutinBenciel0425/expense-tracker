@@ -10,7 +10,7 @@ type ModalProps = {
   payload?: TransactionType | CategoryType | null; // 👈 add this
 };
 
-function Modal({ variantType, payload }: ModalProps) {
+function Modal({ variantType }: ModalProps) {
   const { closeModal, modalPayload } = useUI();
   const { deleteTransaction } = useApp();
   if (!variantType) return null;
