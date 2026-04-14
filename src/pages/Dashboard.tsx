@@ -21,7 +21,12 @@ function Dashboard() {
           >
             Add New Transaction
           </Button>
-          <Button variant="big" onClick={() => console.log("click")}>
+          <Button
+            variant="big"
+            onClick={() => {
+              openModal({ modalType: "addCategory" });
+            }}
+          >
             Add New Category
           </Button>
         </div>

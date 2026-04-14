@@ -1,9 +1,10 @@
-import Form from "./Form";
 import { useApp } from "../hooks/useApp";
 import { useUI } from "../hooks/useUI";
 import type { TransactionType } from "../sharedTypes/transactionTypes";
 import Button from "./Button";
 import type { CategoryType } from "../sharedTypes/categoryTypes";
+import TransactionForm from "./TransactionForm";
+import CategoryForm from "./CategoryForm";
 
 type ModalProps = {
   variantType: "update" | "delete" | "addTransaction" | "addCategory" | null;
@@ -55,12 +56,15 @@ function Modal({ variantType }: ModalProps) {
         className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <Form />
+        <TransactionForm />
       </div>
     ),
     addCategory: (
-      <div onClick={(e) => e.stopPropagation()}>
-        ...add category modal content...
+      <div
+        className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <CategoryForm />
       </div>
     ),
   };

@@ -11,6 +11,11 @@ type TransactionData = {
   type: string;
 };
 
+type CategoryData = {
+  name: string;
+  type: string;
+};
+
 export function useApp() {
   const context = useContext(AppContext);
   const { dispatch, state, currentTab, setCurrentTab } = context;
@@ -26,6 +31,10 @@ export function useApp() {
   );
   const totalBalance = totalIncome - totalExpense;
 
+  const types = [...new Set(state.transactions.map((tr) => tr.type))].map(
+    (type) => ({ name: type }),
+  );
+
   function addTransaction(data: TransactionData) {
     const { date, category, description, amount, type } = data;
     dispatch({
@@ -34,8 +43,20 @@ export function useApp() {
         id: generateNewId(),
         date,
         category,
-        description,
+        description: description.trim(),
         amount,
+        type,
+      },
+    });
+  }
+
+  function addCategory(data: CategoryData) {
+    const { name, type } = data;
+    dispatch({
+      type: "ADD_CATEGORY",
+      payload: {
+        id: generateNewId(),
+        name: name.trim(),
         type,
       },
     });
@@ -93,5 +114,7 @@ export function useApp() {
     todayDate,
     formatDate,
     addTransaction,
+    addCategory,
+    types,
   };
 }

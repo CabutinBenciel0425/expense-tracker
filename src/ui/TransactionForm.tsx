@@ -12,7 +12,7 @@ type InputTypes = {
   type: "Income" | "Expense";
 };
 
-function Form() {
+function TransactionForm() {
   const { state, formatString, todayDate, addTransaction } = useApp();
   const {
     register,
@@ -156,4 +156,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default TransactionForm;
