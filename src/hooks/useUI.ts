@@ -5,7 +5,7 @@ import type { TransactionType } from "../sharedTypes/transactionTypes";
 
 type openModalTypes = {
   modalType: "update" | "delete" | "addTransaction" | "addCategory";
-  payload: TransactionType | CategoryType;
+  payload?: TransactionType | CategoryType;
 };
 
 export function useUI() {

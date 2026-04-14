@@ -13,6 +13,6 @@ export type uiAction =
   | {
       type: "OPEN_MODAL";
       modalType: "update" | "delete" | "addTransaction" | "addCategory";
-      payload: TransactionType | CategoryType;
+      payload?: TransactionType | CategoryType;
     }
   | { type: "CLOSE_MODAL" };

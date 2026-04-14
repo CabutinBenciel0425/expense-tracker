@@ -3,15 +3,22 @@ import InfoSummary from "../components/InfoSummary";
 import TransactionList from "../components/TransactionList";
 import AppLayout from "../components/AppLayout";
 import Button from "../ui/Button";
+import { useUI } from "../hooks/useUI";
 
 function Dashboard() {
+  const { openModal } = useUI();
   return (
     <AppLayout>
       <Header />
       <div className="flex-1 px-20">
         <InfoSummary />
         <div className="w-full h-32 flex flex-row items-center justify-center gap-20">
-          <Button variant="big" onClick={() => console.log("click")}>
+          <Button
+            variant="big"
+            onClick={() => {
+              openModal({ modalType: "addTransaction" });
+            }}
+          >
             Add New Transaction
           </Button>
           <Button variant="big" onClick={() => console.log("click")}>

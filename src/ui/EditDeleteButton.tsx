@@ -16,7 +16,6 @@ function EditDeleteButton({ data }: { data: TransactionType | CategoryType }) {
         variant="small"
         onClick={() => {
           openModal({ modalType: "delete", payload: data });
-          console.log(data);
         }}
       >
         <HiOutlineTrash />

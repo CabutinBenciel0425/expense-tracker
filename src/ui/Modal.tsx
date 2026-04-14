@@ -1,17 +1,16 @@
-import { Form } from "react-hook-form";
+import Form from "./Form";
 import { useApp } from "../hooks/useApp";
 import { useUI } from "../hooks/useUI";
 import type { TransactionType } from "../sharedTypes/transactionTypes";
 import Button from "./Button";
+import type { CategoryType } from "../sharedTypes/categoryTypes";
 
-type ModalVariant =
-  | "update"
-  | "delete"
-  | "addTransaction"
-  | "addCategory"
-  | null;
+type ModalProps = {
+  variantType: "update" | "delete" | "addTransaction" | "addCategory" | null;
+  payload?: TransactionType | CategoryType | null; // 👈 add this
+};
 
-function Modal({ variantType }: { variantType: ModalVariant }) {
+function Modal({ variantType, payload }: ModalProps) {
   const { closeModal, modalPayload } = useUI();
   const { deleteTransaction } = useApp();
   if (!variantType) return null;
@@ -52,7 +51,10 @@ function Modal({ variantType }: { variantType: ModalVariant }) {
       </div>
     ),
     addTransaction: (
-      <div className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md">
+      <div
+        className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md"
+        onClick={(e) => e.stopPropagation()}
+      >
         <Form />
       </div>
     ),

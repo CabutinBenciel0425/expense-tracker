@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import Select from "./Select";
 import { useApp } from "../hooks/useApp";
 import Button from "./Button";
@@ -19,12 +19,17 @@ function Form() {
     handleSubmit,
     reset,
     formState: { errors },
+    control,
   } = useForm<InputTypes>({
     defaultValues: {
       date: todayDate,
       type: "Income",
     },
   });
+  const selectedType = useWatch({ control, name: "type" });
+  const filteredCategories = state.categories.filter(
+    (cat) => cat.type === selectedType,
+  );
 
   const { closeModal } = useUI();
 
@@ -66,19 +71,17 @@ function Form() {
       </div>
       <div className="flex flex-row gap-10 justify-between items-center w-full relative">
         <Select
-          label="Category: "
-          dataArr={state.categories}
+          label="Type: "
+          dataArr={types}
           valueKey="name"
           labelKey="name"
           formatFn={formatString}
           from="formComponent"
-          registerProps={register("category", {
-            required: "Category is required",
-          })}
+          registerProps={register("type", { required: "Type is required" })}
         ></Select>
-        {errors.category && (
+        {errors.type && (
           <p className="text-brand-expense text-sm absolute mt-14">
-            {errors.category.message}
+            {errors.type.message}
           </p>
         )}
       </div>
@@ -124,17 +127,19 @@ function Form() {
       </div>
       <div className="flex flex-row gap-10 justify-between items-center w-full relative">
         <Select
-          label="Type: "
-          dataArr={types}
+          label="Category: "
+          dataArr={filteredCategories}
           valueKey="name"
           labelKey="name"
           formatFn={formatString}
           from="formComponent"
-          registerProps={register("type", { required: "Type is required" })}
+          registerProps={register("category", {
+            required: "Category is required",
+          })}
         ></Select>
-        {errors.type && (
+        {errors.category && (
           <p className="text-brand-expense text-sm absolute mt-14">
-            {errors.type.message}
+            {errors.category.message}
           </p>
         )}
       </div>
