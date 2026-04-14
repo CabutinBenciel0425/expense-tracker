@@ -16,7 +16,13 @@ type UpdateTransactionData = NewTransactionData & {
   id: string;
 };
 
-type CategoryData = {
+type NewCategoryData = {
+  name: string;
+  type: string;
+};
+
+type UpdateCategoryDate = {
+  id: string;
   name: string;
   type: string;
 };
@@ -55,7 +61,7 @@ export function useApp() {
     });
   }
 
-  function addCategory(data: CategoryData) {
+  function addCategory(data: NewCategoryData) {
     const { name, type } = data;
     dispatch({
       type: "ADD_CATEGORY",
@@ -77,6 +83,18 @@ export function useApp() {
         category,
         description,
         amount,
+        type,
+      },
+    });
+  }
+
+  function updateCategory(data: UpdateCategoryDate) {
+    const { id, name, type } = data;
+    dispatch({
+      type: "UPDATE_CATEGORY",
+      payload: {
+        id,
+        name,
         type,
       },
     });
@@ -151,6 +169,7 @@ export function useApp() {
     addTransaction,
     addCategory,
     updateTransaction,
+    updateCategory,
     types,
   };
 }

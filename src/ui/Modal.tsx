@@ -45,7 +45,7 @@ function Modal({ variantType }: ModalProps) {
         className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <TransactionForm />
+        <TransactionForm payload={modalPayload as TransactionType} />
       </div>
     ),
     updateCategory: (
@@ -53,7 +53,7 @@ function Modal({ variantType }: ModalProps) {
         className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <CategoryForm />
+        <CategoryForm payload={modalPayload as CategoryType} />
       </div>
     ),
     delete: (

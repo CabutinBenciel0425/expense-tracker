@@ -3,6 +3,7 @@ import Select from "./Select";
 import { useApp } from "../hooks/useApp";
 import Button from "./Button";
 import { useUI } from "../hooks/useUI";
+import type { TransactionType } from "../sharedTypes/transactionTypes";
 
 type InputTypes = {
   date: string;
@@ -12,8 +13,13 @@ type InputTypes = {
   type: "Income" | "Expense";
 };
 
-function TransactionForm() {
-  const { state, formatString, todayDate, addTransaction } = useApp();
+type TransactionFormProps = {
+  payload?: TransactionType | null;
+};
+
+function TransactionForm({ payload }: TransactionFormProps) {
+  const { state, formatString, todayDate, addTransaction, updateTransaction } =
+    useApp();
   const {
     register,
     handleSubmit,
@@ -21,14 +27,25 @@ function TransactionForm() {
     formState: { errors },
     control,
   } = useForm<InputTypes>({
-    defaultValues: {
-      date: todayDate,
-      type: "Income",
-    },
+    defaultValues: payload
+      ? {
+          date: payload.date,
+          type: payload.type as "Income" | "Expense",
+          description: payload.description,
+          amount: payload.amount,
+          category: payload.category,
+        }
+      : {
+          date: todayDate,
+          type: "Income",
+        },
   });
   const selectedType = useWatch({ control, name: "type" });
+
   const filteredCategories = state.categories.filter(
-    (cat) => cat.type === selectedType,
+    (cat) =>
+      cat.type.toLowerCase() === selectedType?.toLowerCase() ||
+      cat.name === payload?.category,
   );
 
   const { closeModal } = useUI();
@@ -38,8 +55,12 @@ function TransactionForm() {
   );
 
   const onSubmit = (data: InputTypes) => {
-    console.log("Form submitted:", data);
-    addTransaction(data);
+    if (payload) {
+      updateTransaction({ ...payload, ...data });
+    } else {
+      addTransaction(data);
+    }
+
     reset();
     closeModal();
   };
@@ -49,7 +70,9 @@ function TransactionForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-xl bg-black flex flex-col justify-center items-start gap-10 text-2xl p-5"
     >
-      <h2 className="text-3xl font-bold mb-5">Add New Transaction</h2>
+      <h2 className="text-3xl font-bold mb-5">
+        {!payload ? "Add New Transaction" : "Update Transaction"}
+      </h2>
       <div className="flex flex-row justify-between items-center w-full relative">
         <div className="w-6/12">
           <label htmlFor="date">Date: </label>
@@ -149,7 +172,7 @@ function TransactionForm() {
           Cancel
         </Button>
         <Button variant="modalBtnSaveConfirm" type="submit">
-          Add Transaction
+          {!payload ? "Add Transaction" : "Update"}
         </Button>
       </div>
     </form>

@@ -139,4 +139,8 @@ export const categories: CategoryType[] = [
   { id: "4", name: "Dining", type: "Expense" },
   { id: "5", name: "Transport", type: "Expense" },
   { id: "6", name: "Utilities", type: "Expense" },
+  { id: "7", name: "Entertainment", type: "Expense" },
+  { id: "8", name: "Health", type: "Expense" },
+  { id: "9", name: "Gift", type: "Expense" },
+  { id: "10", name: "Savings", type: "Income" },
 ];

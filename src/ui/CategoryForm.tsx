@@ -3,27 +3,41 @@ import Select from "./Select";
 import { useApp } from "../hooks/useApp";
 import Button from "./Button";
 import { useUI } from "../hooks/useUI";
+import type { CategoryType } from "../sharedTypes/categoryTypes";
 
 type InputTypes = {
   name: string;
   type: "Income" | "Expense";
 };
 
-function CategoryForm() {
-  const { formatString, types, addCategory } = useApp();
+type CategoryFormProps = {
+  payload?: CategoryType | null;
+};
+
+function CategoryForm({ payload }: CategoryFormProps) {
+  const { formatString, types, addCategory, updateCategory } = useApp();
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm<InputTypes>({
-    defaultValues: { type: "Income" },
+    defaultValues: payload
+      ? {
+          name: payload.name,
+          type: payload.type as "Income" | "Expense",
+        }
+      : { type: "Income" },
   });
 
   const { closeModal } = useUI();
 
   const onSubmit = (data: InputTypes) => {
-    addCategory(data);
+    if (payload) {
+      updateCategory({ ...payload, ...data });
+    } else {
+      addCategory(data);
+    }
     reset();
     closeModal();
   };
@@ -33,7 +47,9 @@ function CategoryForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-md bg-black flex flex-col justify-center items-start gap-10 text-2xl p-5"
     >
-      <h2 className="text-3xl font-bold mb-5">Add New Category</h2>
+      <h2 className="text-3xl font-bold mb-5">
+        {!payload ? "Add New Category" : "Update Category"}
+      </h2>
 
       <div className="flex flex-row gap-10 justify-between items-center w-full relative">
         <div className="w-6/12">
@@ -79,7 +95,7 @@ function CategoryForm() {
           Cancel
         </Button>
         <Button variant="modalBtnSaveConfirm" type="submit">
-          Add Transaction
+          {!payload ? "Add new Category" : "Update Category"}
         </Button>
       </div>
     </form>

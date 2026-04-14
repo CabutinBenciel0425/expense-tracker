@@ -8,6 +8,7 @@ type SelectProps<T> = {
   registerProps?: React.SelectHTMLAttributes<HTMLSelectElement>;
   value?: string;
   onChange?: (value: string) => void;
+  defaultValue?: string;
 };
 
 function Select<T extends Record<string, unknown>>({
@@ -20,6 +21,7 @@ function Select<T extends Record<string, unknown>>({
   registerProps,
   value,
   onChange,
+  defaultValue,
 }: SelectProps<T>) {
   return (
     <div
@@ -34,6 +36,7 @@ function Select<T extends Record<string, unknown>>({
           {...registerProps}
           value={value}
           onChange={(e) => onChange?.(e.target.value)}
+          defaultValue={registerProps ? undefined : defaultValue}
         >
           {from === "categoryFilter" && !label.includes("Date") && (
             <option value="all">All</option>

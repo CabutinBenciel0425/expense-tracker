@@ -15,7 +15,6 @@ function EditDeleteButton({
   const { openModal } = useUI();
   const updateFn =
     from === "transactionList" ? "updateTransaction" : "updateCategory";
-  console.log(updateFn);
 
   return (
     <div className="flex justify-center gap-2.5">
