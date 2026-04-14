@@ -17,6 +17,7 @@ function List({
   from,
 }: ListPropTypes) {
   const { formatDate } = useApp();
+  console.log(from);
   return (
     <div className="w-10/12 m-auto max-h-125 overflow-y-auto border border-brand-bg-light">
       <table className="border-separate text-xl border-spacing-y-3 w-full text-left">
@@ -50,7 +51,7 @@ function List({
                   {data.type}
                 </td>
                 <td className="text-3xl">
-                  <EditDeleteButton data={data} />
+                  <EditDeleteButton data={data} from={from} />
                 </td>
               </tr>
             ) : (

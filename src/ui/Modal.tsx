@@ -7,32 +7,53 @@ import TransactionForm from "./TransactionForm";
 import CategoryForm from "./CategoryForm";
 
 type ModalProps = {
-  variantType: "update" | "delete" | "addTransaction" | "addCategory" | null;
-  payload?: TransactionType | CategoryType | null; // 👈 add this
+  variantType:
+    | "updateTransaction"
+    | "updateCategory"
+    | "delete"
+    | "addTransaction"
+    | "addCategory"
+    | null;
+  payload?: TransactionType | CategoryType | null;
 };
 
 function Modal({ variantType }: ModalProps) {
   const { closeModal, modalPayload } = useUI();
-  const { deleteTransaction } = useApp();
+  const { deleteTransaction, deleteCategory } = useApp();
   if (!variantType) return null;
+
+  function isTransaction(
+    payload: TransactionType | CategoryType | null,
+  ): payload is TransactionType {
+    return !!payload && "amount" in payload && "date" in payload;
+  }
+
+  function isCategory(
+    payload: TransactionType | CategoryType | null,
+  ): payload is CategoryType {
+    return (
+      !!payload &&
+      "name" in payload &&
+      "type" in payload &&
+      !("amount" in payload)
+    );
+  }
+
   const variant = {
-    update: (
+    updateTransaction: (
       <div
-        className="flex flex-col justify-start items-center gap-10 px-4 py-10 bg-brand-bg rounded-md"
+        className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md"
         onClick={(e) => e.stopPropagation()}
       >
-        <p className="text-2xl">Are you sure you want to update this row?</p>
-        <div className="flex flex-row items-center justify-end w-full gap-5">
-          <Button variant="modalBtnCancel" onClick={() => closeModal()}>
-            Cancel
-          </Button>
-          <Button
-            variant="modalBtnSaveConfirm"
-            onClick={(e) => e.stopPropagation()}
-          >
-            Confirm
-          </Button>
-        </div>
+        <TransactionForm />
+      </div>
+    ),
+    updateCategory: (
+      <div
+        className="flex flex-col justify-start items-center gap-5 px-4 py-5 bg-brand-bg rounded-md"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <CategoryForm />
       </div>
     ),
     delete: (
@@ -44,7 +65,14 @@ function Modal({ variantType }: ModalProps) {
           </Button>
           <Button
             variant="modalBtnSaveConfirm"
-            onClick={() => deleteTransaction(modalPayload as TransactionType)}
+            onClick={() => {
+              if (isTransaction(modalPayload)) {
+                deleteTransaction(modalPayload);
+              } else if (isCategory(modalPayload)) {
+                deleteCategory(modalPayload);
+              }
+              closeModal();
+            }}
           >
             Confirm
           </Button>

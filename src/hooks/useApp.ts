@@ -2,13 +2,18 @@ import type { TransactionType } from "./../sharedTypes/transactionTypes";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import { generateNewId } from "../utils/helpers";
+import type { CategoryType } from "../sharedTypes/categoryTypes";
 
-type TransactionData = {
+type NewTransactionData = {
   date: string;
   category: string;
   description: string;
   amount: number;
   type: string;
+};
+
+type UpdateTransactionData = NewTransactionData & {
+  id: string;
 };
 
 type CategoryData = {
@@ -35,7 +40,7 @@ export function useApp() {
     (type) => ({ name: type }),
   );
 
-  function addTransaction(data: TransactionData) {
+  function addTransaction(data: NewTransactionData) {
     const { date, category, description, amount, type } = data;
     dispatch({
       type: "ADD_TRANSACTION",
@@ -62,6 +67,21 @@ export function useApp() {
     });
   }
 
+  function updateTransaction(data: UpdateTransactionData) {
+    const { id, date, category, description, amount, type } = data;
+    dispatch({
+      type: "UPDATE_TRANSACTION",
+      payload: {
+        id,
+        date,
+        category,
+        description,
+        amount,
+        type,
+      },
+    });
+  }
+
   function formatString(str: string) {
     return str.split("").at(0)?.toUpperCase() + str.slice(1);
   }
@@ -81,6 +101,13 @@ export function useApp() {
   function deleteTransaction(dataRow: TransactionType) {
     dispatch({
       type: "DELETE_TRANSACTION",
+      id: dataRow.id,
+    });
+  }
+
+  function deleteCategory(dataRow: CategoryType) {
+    dispatch({
+      type: "DELETE_CATEGORY",
       id: dataRow.id,
     });
   }
@@ -118,10 +145,12 @@ export function useApp() {
     sortByDateNewest,
     sortByDateOldest,
     deleteTransaction,
+    deleteCategory,
     todayDate,
     formatDate,
     addTransaction,
     addCategory,
+    updateTransaction,
     types,
   };
 }

@@ -4,7 +4,12 @@ import { UIContext } from "../context/UIContext";
 import type { TransactionType } from "../sharedTypes/transactionTypes";
 
 type openModalTypes = {
-  modalType: "update" | "delete" | "addTransaction" | "addCategory";
+  modalType:
+    | "updateTransaction"
+    | "updateCategory"
+    | "delete"
+    | "addTransaction"
+    | "addCategory";
   payload?: TransactionType | CategoryType;
 };
 
