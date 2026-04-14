@@ -11,8 +11,12 @@ function Dashboard() {
       <div className="flex-1 px-20">
         <InfoSummary />
         <div className="w-full h-32 flex flex-row items-center justify-center gap-20">
-          <Button variant="big">Add New Transaction</Button>
-          <Button variant="big">Add New Category</Button>
+          <Button variant="big" onClick={() => console.log("click")}>
+            Add New Transaction
+          </Button>
+          <Button variant="big" onClick={() => console.log("click")}>
+            Add New Category
+          </Button>
         </div>
         <div className="border-b border-black w-full"></div>
         <div className="py-5">

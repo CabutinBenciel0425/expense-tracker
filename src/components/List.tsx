@@ -1,3 +1,4 @@
+import { useApp } from "../hooks/useApp";
 import type { CategoryType } from "../sharedTypes/categoryTypes";
 import type { TransactionType } from "../sharedTypes/transactionTypes";
 import EditDeleteButton from "../ui/EditDeleteButton";
@@ -15,6 +16,7 @@ function List({
   dataArr,
   from,
 }: ListPropTypes) {
+  const { formatDate } = useApp();
   return (
     <div className="w-10/12 m-auto max-h-125 overflow-y-auto border border-brand-bg-light">
       <table className="border-separate text-xl border-spacing-y-3 w-full text-left">
@@ -34,7 +36,7 @@ function List({
               >
                 {from === "transactionList" ? (
                   <>
-                    <td>{(data as TransactionType).date}</td>
+                    <td>{formatDate((data as TransactionType).date)}</td>
                     <td>{(data as TransactionType).category}</td>
                     <td>{(data as TransactionType).description}</td>
                     <td>{(data as TransactionType).amount}</td>
@@ -48,7 +50,7 @@ function List({
                   {data.type}
                 </td>
                 <td className="text-3xl">
-                  <EditDeleteButton />
+                  <EditDeleteButton data={data} />
                 </td>
               </tr>
             ) : (

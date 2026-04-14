@@ -17,6 +17,7 @@ function CategoryFilter() {
           valueKey="name"
           labelKey="name"
           formatFn={formatString}
+          from="categoryFilter"
         />
 
         <Select
@@ -25,6 +26,7 @@ function CategoryFilter() {
           valueKey="name"
           labelKey="name"
           formatFn={formatString}
+          from="categoryFilter"
         />
 
         <Select
@@ -33,10 +35,13 @@ function CategoryFilter() {
           valueKey="name"
           labelKey="name"
           formatFn={formatString}
+          from="categoryFilter"
         />
 
         <div>
-          <Button variant="small">Reset</Button>
+          <Button variant="small" onClick={() => console.log("reset")}>
+            Reset
+          </Button>
         </div>
       </div>
     </div>

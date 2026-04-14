@@ -1,10 +1,21 @@
+import type { TransactionType } from "./../sharedTypes/transactionTypes";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
-import type { TransactionType } from "../sharedTypes/transactionTypes";
+import { generateNewId } from "../utils/helpers";
+
+type TransactionData = {
+  date: string;
+  category: string;
+  description: string;
+  amount: number;
+  type: string;
+};
 
 export function useApp() {
   const context = useContext(AppContext);
   const { dispatch, state, currentTab, setCurrentTab } = context;
+  const todayDate = new Date().toISOString().split("T")[0];
+
   const totalIncome = state.transactions.reduce(
     (acc, cur) => (cur.type === "Income" ? cur.amount + acc : acc),
     0,
@@ -15,6 +26,21 @@ export function useApp() {
   );
   const totalBalance = totalIncome - totalExpense;
 
+  function addTransaction(data: TransactionData) {
+    const { date, category, description, amount, type } = data;
+    dispatch({
+      type: "ADD_TRANSACTION",
+      payload: {
+        id: generateNewId(),
+        date,
+        category,
+        description,
+        amount,
+        type,
+      },
+    });
+  }
+
   function formatString(str: string) {
     return str.split("").at(0)?.toUpperCase() + str.slice(1);
   }
@@ -23,6 +49,32 @@ export function useApp() {
     return [...arr].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
+  }
+
+  function deleteTransaction(dataRow: TransactionType) {
+    dispatch({
+      type: "DELETE_TRANSACTION",
+      id: dataRow.id,
+    });
+  }
+
+  function formatDate(value: string) {
+    const parts = value.split("-");
+
+    const year = Number(parts[0]);
+    const month = Number(parts[1]);
+    const day = Number(parts[2]);
+
+    const date = new Date(Date.UTC(year, month - 1, day));
+
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    return new Intl.DateTimeFormat("en-US", options).format(date);
   }
 
   if (!context) throw new Error("App Context was used outside the provider");
@@ -37,5 +89,9 @@ export function useApp() {
     setCurrentTab,
     formatString,
     sortByDate,
+    deleteTransaction,
+    todayDate,
+    formatDate,
+    addTransaction,
   };
 }
