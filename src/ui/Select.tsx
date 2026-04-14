@@ -6,6 +6,8 @@ type SelectProps<T> = {
   formatFn?: (val: string) => string;
   from: "formComponent" | "categoryFilter";
   registerProps?: React.SelectHTMLAttributes<HTMLSelectElement>;
+  value?: string;
+  onChange?: (value: string) => void;
 };
 
 function Select<T extends Record<string, unknown>>({
@@ -16,6 +18,8 @@ function Select<T extends Record<string, unknown>>({
   formatFn,
   from,
   registerProps,
+  value,
+  onChange,
 }: SelectProps<T>) {
   return (
     <div
@@ -28,8 +32,12 @@ function Select<T extends Record<string, unknown>>({
         <select
           className="border border-brand-text rounded-md text-brand-text bg-brand-bg px-3 py-2"
           {...registerProps}
+          value={value}
+          onChange={(e) => onChange?.(e.target.value)}
         >
-          {from === "categoryFilter" && <option value="all">All</option>}
+          {from === "categoryFilter" && !label.includes("Date") && (
+            <option value="all">All</option>
+          )}
           {dataArr.map((item, idx) => {
             const value = valueKey ? String(item[valueKey]) : String(item);
             const display = labelKey ? String(item[labelKey]) : String(item);

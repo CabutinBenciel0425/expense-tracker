@@ -66,9 +66,15 @@ export function useApp() {
     return str.split("").at(0)?.toUpperCase() + str.slice(1);
   }
 
-  function sortByDate(arr: TransactionType[]) {
+  function sortByDateNewest(arr: TransactionType[]) {
     return [...arr].sort(
       (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    );
+  }
+
+  function sortByDateOldest(arr: TransactionType[]) {
+    return [...arr].sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
     );
   }
 
@@ -109,7 +115,8 @@ export function useApp() {
     currentTab,
     setCurrentTab,
     formatString,
-    sortByDate,
+    sortByDateNewest,
+    sortByDateOldest,
     deleteTransaction,
     todayDate,
     formatDate,

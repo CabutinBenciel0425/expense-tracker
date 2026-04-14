@@ -1,3 +1,4 @@
+import { useState } from "react";
 import AppLayout from "../components/AppLayout";
 import CategoryFilter from "../components/CategoryFilter";
 import Header from "../components/Header";
@@ -9,6 +10,9 @@ import Button from "../ui/Button";
 function Transaction() {
   const { state } = useApp();
   const { openModal } = useUI();
+  const [filteredTransactions, setFilteredTransactions] = useState(
+    state.transactions,
+  );
 
   return (
     <AppLayout>
@@ -24,9 +28,12 @@ function Transaction() {
             Add new Transaction
           </Button>
         </div>
-        <CategoryFilter />
+        <CategoryFilter setFilteredTransactions={setFilteredTransactions} />
 
-        <TransactionList transactionListLength={state.transactions.length} />
+        <TransactionList
+          transactionListLength={state.transactions.length}
+          filteredTransactions={filteredTransactions}
+        />
       </div>
     </AppLayout>
   );

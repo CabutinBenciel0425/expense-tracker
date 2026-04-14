@@ -1,13 +1,19 @@
 import { useApp } from "../hooks/useApp";
+import type { TransactionType } from "../sharedTypes/transactionTypes";
 import List from "./List";
 
 function TransactionList({
   transactionListLength,
+  filteredTransactions,
 }: {
   transactionListLength: number;
+  filteredTransactions?: TransactionType[];
 }) {
-  const { state, sortByDate } = useApp();
-  const sortByDateTransactions = sortByDate(state.transactions);
+  const { state, sortByDateNewest } = useApp();
+  const sortByDateTransactions =
+    filteredTransactions && filteredTransactions.length > 0
+      ? filteredTransactions
+      : sortByDateNewest(state.transactions);
   const headerTitles = [
     "Date",
     "Category",
